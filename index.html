@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="機車新手入門：機車保養與基本機械原理。依據 S1-S5 Wiki 製作的互動式教學投影片。">
+<title>機車新手入門｜保養與基本機械原理</title>
+<style>
+:root{--bg:#101820;--panel:#182632;--panel2:#203442;--ink:#edf4f7;--muted:#b8c7d0;--accent:#f2b84b;--accent2:#7bc6b5;--line:#38505e;--danger:#ffb6a8}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif}
+body{display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:14px clamp(16px,4vw,48px);border-bottom:1px solid var(--line);background:#111d26}
+.brand{font-weight:750;letter-spacing:.04em}.counter{color:var(--muted);font-variant-numeric:tabular-nums}
+.progress{height:4px;background:#263a47}.progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+main{width:min(1100px,100%);margin:auto;padding:clamp(18px,4vw,48px);flex:1;display:flex;align-items:center}
+.slide{display:none;width:100%;animation:fade .25s ease}.slide.active{display:block}
+@keyframes fade{from{opacity:.45;transform:translateY(7px)}to{opacity:1;transform:none}}
+.kicker{color:var(--accent);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+h1{font-size:clamp(2.2rem,6vw,4.8rem);line-height:1.12;margin:.1em 0 .3em;max-width:900px}
+h2{font-size:clamp(1.7rem,4vw,3rem);line-height:1.2;margin:.1em 0 .55em}
+h3{margin:.2em 0 .5em;font-size:1.2rem}
+p,li{font-size:clamp(1rem,1.8vw,1.18rem);line-height:1.75;color:var(--muted)}
+strong{color:var(--ink)}
+.lead{font-size:clamp(1.15rem,2.4vw,1.5rem);max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card p:last-child{margin-bottom:0}
+.big{font-size:clamp(2rem,5vw,3.4rem);font-weight:850;color:var(--accent);line-height:1.1}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:var(--accent2);font-size:.85rem;margin:3px 4px 3px 0}
+.note{border-left:4px solid var(--accent);padding:12px 16px;background:#1a2a35;border-radius:0 12px 12px 0;margin:18px 0;color:var(--muted);line-height:1.7}
+.warning{border-left-color:var(--danger)}
+.steps{counter-reset:step;list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.steps li{counter-increment:step;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.steps li:before{content:counter(step);display:block;color:var(--accent);font-size:1.8rem;font-weight:850;margin-bottom:8px}
+.flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0}
+.flow span{background:var(--panel2);padding:12px 16px;border-radius:12px;border:1px solid var(--line);font-weight:700}
+.flow b{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:18px 0;background:var(--panel);border-radius:14px;overflow:hidden}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:1rem;line-height:1.5}
+th{color:var(--accent);background:#203442}td{color:var(--muted)}
+small,.source{font-size:.88rem;color:#9fb1bc;line-height:1.6}
+a{color:#f5ca72;text-decoration-thickness:1px;text-underline-offset:3px}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px clamp(16px,4vw,48px);border-top:1px solid var(--line);background:#111d26}
+button{font:inherit;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:12px;padding:11px 18px;cursor:pointer}
+button:hover{border-color:var(--accent);background:#2a4352}
+button:disabled{opacity:.35;cursor:not-allowed}
+button.primary{background:var(--accent);color:#1b2228;border-color:var(--accent);font-weight:800}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent2);outline-offset:3px}
+.quiz button{margin:6px 6px 6px 0;text-align:left}
+.feedback{min-height:2em;color:var(--accent2);font-weight:700;margin-top:12px}
+footer{padding:0 18px 12px;text-align:center;color:#80939e;font-size:.8rem}
+@media(max-width:600px){.controls{position:sticky;bottom:0}.grid{grid-template-columns:1fr}.flow{align-items:stretch;flex-direction:column}.flow b{transform:rotate(90deg);align-self:center}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="brand">機車新手入門｜知識小課堂</div><div class="counter" id="counter">01 / 12</div></header>
+<div class="progress" aria-hidden="true"><span id="progress"></span></div>
+<main>
+<section class="slide active">
+  <div class="kicker">BEGINNER'S GUIDE · 01</div>
+  <h1>機車新手入門</h1>
+  <h2>機車保養與基本機械原理</h2>
+  <p class="lead">從引擎如何產生動力，到傳動如何把動力送到車輪，再學會如何正確查找保養資訊。</p>
+  <div class="grid">
+    <div class="card"><div class="big">01</div><h3>認識引擎</h3><p>理解四行程與主要零件。</p></div>
+    <div class="card"><div class="big">02</div><h3>認識傳動</h3><p>分辨離合器、CVT 與 G7 PTM。</p></div>
+    <div class="card"><div class="big">03</div><h3>學會保養觀念</h3><p>知道怎麼看手冊，不亂套用規格。</p></div>
+  </div>
+  <p class="source">教材依據：Motorcycle LLM Wiki，來源 S1–S5。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">LEARNING MAP · 02</div>
+  <h2>今天的學習路線</h2>
+  <p>先了解動力從哪裡來，再追蹤動力如何傳出去，最後回到車主每天會遇到的檢查與保養。</p>
+  <div class="flow"><span>引擎</span><b>→</b><span>離合器／傳動</span><b>→</b><span>驅動輪</span></div>
+  <div class="note">重要觀念：不同機車的引擎、傳動與保養規格可能不同。這份教材會用 G7 作為車款案例，但不會把其他車款的規格直接套用到 G7。</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">ENGINE · 03</div>
+  <h2>引擎在做什麼？</h2>
+  <p class="lead">引擎的工作，是把燃料燃燒所產生的能量轉換成機械動力。</p>
+  <div class="grid">
+    <div class="card"><h3>汽缸與活塞</h3><p>活塞在汽缸內往復移動，形成進氣、壓縮與做功等過程。</p></div>
+    <div class="card"><h3>連桿</h3><p>連接活塞與曲軸，把活塞的往復運動傳給曲軸。</p></div>
+    <div class="card"><h3>曲軸</h3><p>把往復運動轉換成旋轉運動，形成引擎輸出的旋轉動力。</p></div>
+    <div class="card"><h3>氣閥機構</h3><p>控制進氣與排氣的時間，讓氣體在適當時機進出汽缸。</p></div>
+  </div>
+  <p class="source">來源：[S3] 車輛研究測試中心；[S4] 動力機械群教材。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">FOUR-STROKE · 04</div>
+  <h2>四行程引擎的四個步驟</h2>
+  <ol class="steps">
+    <li><strong>進氣</strong><br>活塞向下，進氣閥開啟，混合氣進入汽缸。</li>
+    <li><strong>壓縮</strong><br>活塞向上，氣閥關閉，混合氣受到壓縮。</li>
+    <li><strong>動力</strong><br>火星塞點火，燃燒壓力推動活塞向下。</li>
+    <li><strong>排氣</strong><br>活塞向上，排氣閥開啟，廢氣排出汽缸。</li>
+  </ol>
+  <div class="note">四行程是指活塞完成四個行程；依 S4 教材，完整循環中曲軸轉兩圈（720°）。</div>
+  <p class="source">來源：[S3]、[S4]。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">VALVE TRAIN · 05</div>
+  <h2>為什麼氣閥要「準時」開關？</h2>
+  <p>進氣閥與排氣閥必須在正確時機開啟或關閉，才能配合活塞完成四行程循環。</p>
+  <div class="grid">
+    <div class="card"><h3>凸輪</h3><p>隨引擎運轉而轉動，透過機構帶動氣閥作動。</p></div>
+    <div class="card"><h3>搖臂／推桿</h3><p>把凸輪的動作傳遞到氣閥。</p></div>
+    <div class="card"><h3>氣閥彈簧</h3><p>協助氣閥回到關閉位置。</p></div>
+  </div>
+  <div class="note warning">本頁只說明工作概念，不是氣閥調整或引擎拆裝教學。不同引擎的機構配置可能不同。</div>
+  <p class="source">來源：[S3] ARTC 技術文章。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">TRANSMISSION · 06</div>
+  <h2>引擎有動力，車輪就會轉嗎？</h2>
+  <p class="lead">還需要傳動系統，把引擎輸出的旋轉動力傳到驅動輪。</p>
+  <div class="flow"><span>引擎輸出</span><b>→</b><span>離合器／變速機構</span><b>→</b><span>驅動輪</span></div>
+  <div class="grid">
+    <div class="card"><h3>離合器</h3><p>依機構設計接合或切開動力傳遞。</p></div>
+    <div class="card"><h3>變速機構</h3><p>改變輸入與輸出之間的轉速、扭力搭配。</p></div>
+    <div class="card"><h3>傳動系統</h3><p>由多個零件合作完成動力傳遞；不同車款架構不一定相同。</p></div>
+  </div>
+  <p class="source">來源：[S4] 動力機械群教材；[S5] 離合器原理教育資料。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">CLUTCH · 07</div>
+  <h2>離合器的角色</h2>
+  <p class="lead">離合器的核心作用，是依機構狀態接合或切斷動力傳遞。</p>
+  <div class="grid">
+    <div class="card"><div class="big">接合</div><p>讓引擎的旋轉動力能傳到後續傳動機構。</p></div>
+    <div class="card"><div class="big">分離</div><p>讓引擎與後續傳動機構暫時不傳遞動力。</p></div>
+  </div>
+  <p>S5 的教育資料以離心式離合器作為例子：轉速狀態改變時，摩擦元件向外作用並與外碗接合，讓動力繼續傳遞。</p>
+  <div class="note">這是特定教材中的原理示例，不代表所有機車都使用相同離合器結構。</div>
+  <p class="source">來源：[S4]、[S5]。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">CVT VS PTM · 08</div>
+  <h2>CVT 與 G7 PTM 不要混為一談</h2>
+  <table>
+    <thead><tr><th>比較</th><th>一般 V 型皮帶 CVT</th><th>G7 官方列示</th></tr></thead>
+    <tbody>
+      <tr><td>傳動概念</td><td>皮帶與前後滑輪構成無段變速機構</td><td>PTM，鍊條</td></tr>
+      <tr><td>教材中提到的零件</td><td>主動部、V 型皮帶、被動部、滾子、離心式離合器</td><td>本 Wiki 現有來源不足以說明完整內部構造</td></tr>
+      <tr><td>使用範圍</td><td>用來理解部分速克達 CVT</td><td>以 G7 官方規格為準</td></tr>
+    </tbody>
+  </table>
+  <div class="note warning">不要把一般 CVT 的皮帶、普利珠或保養週期直接套用到 G7。G7 PTM 的詳細機構仍待原廠技術資料補充。</div>
+  <p class="source">來源：[S1] KYMCO G7 官方規格；[S4] CVT 教材。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">G7 CASE STUDY · 09</div>
+  <h2>用 G7 看懂「規格表」</h2>
+  <div class="grid">
+    <div class="card"><div class="big">175.1</div><h3>排氣量 c.c.</h3><p>官方規格列示的排氣量。</p></div>
+    <div class="card"><div class="big">17.3 PS</div><h3>引擎最大馬力</h3><p>8,000 rpm。</p></div>
+    <div class="card"><div class="big">17.8 PS</div><h3>綜效馬力</h3><p>官方另列的綜效數值。</p></div>
+    <div class="card"><div class="big">1.7 kg-m</div><h3>最大扭力</h3><p>6,000 rpm。</p></div>
+  </div>
+  <p>官方規格另列：水冷四閥四行程 ISG、PTM 鍊條傳動、前 270 mm 與後 234 mm 固定碟，以及機油全容量 0.9 L／交換量 0.8 L。</p>
+  <div class="note">規格表是車款公開資料，不等於完整維修手冊。機油容量也不應取代正確的量測與手冊程序。</div>
+  <p class="source">來源：[S1] KYMCO G7 官方規格頁。規格以原廠最新頁面與實際車型為準。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">MAINTENANCE · 10</div>
+  <h2>新手保養最重要的觀念：先確認車型與手冊</h2>
+  <p>本 Wiki 的 S2 是 <strong>X-TOWN ST</strong> 使用說明書。它可以示範原廠手冊會列出哪些檢查項目，但不是 G7 手冊。</p>
+  <div class="grid">
+    <div class="card"><h3>騎乘前檢查示例</h3><p>燈光、儀表、喇叭、後視鏡、輪胎、煞車及已知異常等。</p></div>
+    <div class="card"><h3>保養資訊怎麼查</h3><p>先確認車型、年式與版本，再對照該車原廠手冊的週期與規格。</p></div>
+  </div>
+  <ol>
+    <li>確認車型、年式、版本。</li>
+    <li>找該車對應的原廠使用手冊。</li>
+    <li>核對檢查項目、里程／時間週期及油品規格。</li>
+    <li>煞車、輪胎、轉向等安全項目有異常時，請合格技師檢查。</li>
+  </ol>
+  <div class="note warning">目前 S1–S5 沒有提供 G7 對應年式的完整保養週期表。因此 G7 換油週期、齒輪油規格與耗材週期都標記為「待查證」，不可拿 X-TOWN ST 的數字代替。</div>
+  <p class="source">來源：[S2] KYMCO X-TOWN ST 使用說明書；[S1] G7 官方規格頁。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">KNOWLEDGE CHECK · 11</div>
+  <h2>小測驗：檢查你是否掌握重點</h2>
+  <div class="quiz">
+    <div class="card">
+      <h3>1. 四行程引擎的正確順序是？</h3>
+      <button onclick="answer(this,false,'q1')">壓縮 → 進氣 → 排氣 → 動力</button>
+      <button onclick="answer(this,true,'q1')">進氣 → 壓縮 → 動力 → 排氣</button>
+      <button onclick="answer(this,false,'q1')">進氣 → 動力 → 壓縮 → 排氣</button>
+      <div class="feedback" id="q1" aria-live="polite"></div>
+    </div>
+    <div class="card">
+      <h3>2. G7 官方規格列示的傳動系統是？</h3>
+      <button onclick="answer(this,false,'q2')">一般 V 型皮帶 CVT</button>
+      <button onclick="answer(this,true,'q2')">PTM，鍊條</button>
+      <button onclick="answer(this,false,'q2')">手動多檔鏈條變速</button>
+      <div class="feedback" id="q2" aria-live="polite"></div>
+    </div>
+    <div class="card">
+      <h3>3. 可以直接把 X-TOWN ST 手冊的保養數字套用到 G7 嗎？</h3>
+      <button onclick="answer(this,false,'q3')">可以，因為都是 KYMCO</button>
+      <button onclick="answer(this,true,'q3')">不可以，必須查 G7 對應手冊</button>
+      <div class="feedback" id="q3" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">RECAP & REFERENCES · 12</div>
+  <h2>重點回顧與資料來源</h2>
+  <ul>
+    <li>引擎透過四行程循環產生動力。</li>
+    <li>傳動系統負責把動力傳到驅動輪；離合器是其中一種機構。</li>
+    <li>一般 CVT 與 G7 官方列示的 PTM 鍊條不可混為一談。</li>
+    <li>保養週期與規格必須查閱自己車款、年式的原廠手冊。</li>
+  </ul>
+  <h3>來源清單（對應 Wiki S1–S5）</h3>
+  <ol class="source">
+    <li>[S1] <a href="https://www.kymco.com.tw/motor/g7" target="_blank" rel="noopener">KYMCO G7 官方規格頁</a></li>
+    <li>[S2] <a href="https://www.kymco.com.tw/storage/app/uploads/public/694/390/250/6943902506f30917454972.pdf" target="_blank" rel="noopener">KYMCO X-TOWN ST 使用說明書 PDF</a></li>
+    <li>[S3] <a href="https://www.artc.org.tw/tw/knowledge/articles/2858" target="_blank" rel="noopener">ARTC：提升機車引擎性能，從氣閥機構模擬開始</a></li>
+    <li>[S4] <a href="https://www.grjh.tn.edu.tw/modules/tad_uploader/index.php?cat_sn=1289&cfsn=6235&name=%E6%85%88%E5%B9%BC%E5%8B%95%E5%8A%9B%E6%A9%9F%E6%A2%B0%E8%81%B7%E7%BE%A4%E6%95%99%E6%9D%90.pdf&op=dlfile" target="_blank" rel="noopener">歸仁國中：動力機械群教學教材 PDF</a></li>
+    <li>[S5] <a href="https://twsf.ntsec.gov.tw/activity/race-1/55/pdf/090907.pdf" target="_blank" rel="noopener">國立臺灣科學教育館典藏：離合器原理及重要性 PDF</a></li>
+  </ol>
+  <p class="source">本簡報是依據 Motorcycle LLM Wiki 的 S1–S5 整理；教材性質與適用範圍依各來源頁面說明。內容供入門學習，不取代原廠手冊或合格技師的專業檢查。</p>
+</section>
+</main>
+<div class="controls">
+  <button id="prev" onclick="move(-1)" disabled>← 上一頁</button>
+  <div><button onclick="toggleOverview()" id="overviewBtn">頁面總覽</button> <button class="primary" id="next" onclick="move(1)">下一頁 →</button></div>
+</div>
+<footer>使用鍵盤 ← → 也可切換投影片 · 單一 HTML 檔，可離線瀏覽</footer>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let current=0;
+const counter=document.getElementById('counter'),progress=document.getElementById('progress');
+function show(n){current=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>s.classList.toggle('active',i===current));counter.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');progress.style.width=((current+1)/slides.length*100)+'%';document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===slides.length-1;window.scrollTo({top:0,behavior:'smooth'});}
+function move(d){show(current+d)}
+function toggleOverview(){const list=slides.map((s,i)=>`${i+1}. ${s.querySelector('h1,h2')?.textContent||'投影片'}`).join('\n');alert('投影片總覽\n\n'+list)}
+function answer(btn,correct,id){const out=document.getElementById(id);out.textContent=correct?'答對了！':'再想一下，請回顧前面的概念。';out.style.color=correct?'#7bc6b5':'#ffb6a8';}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();move(-1)}});
+show(0);
+</script>
+</body>
+</html>
